@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+    <title>Costa Rica Travel</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h1>Locations</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="location : ${locations}">
+                <td th:text="${location.id}"></td>
+                <td th:text="${location.name}"></td>
+                <td>/</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Costa Rica Travel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="webjars/bootstrap/4.1.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<main role="main">
+    <div class="container">
+        <h1>Partners</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="partner : ${partners}">
+                <td th:text="${partner.id}"></td>
+                <td th:text="${partner.name}"></td>
+                <td th:text="${partner.email}"></td>
+                <td th:text="${partner.phone}"></td>
+                <td th:text="${partner.country}"></td>
+                <td>/</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/popper.js/1.14.1/popper.min.js"></script>
+<script src="/webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>
