@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+    <title>Costa Rica Travel | Partner</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-1">
+            <a th:href="@{/partner}"><i class="fas fa-chevron-left fa-2x"></i></a>
+        </div>
+        <div class="col-11">
+            <h1>Create partner</h1>
+        </div>
+    </div>
+
+    <form name="partner" method="post" enctype="multipart/form-data">
+        <div id="partner">
+            <div class="form-group">
+                <label for="partner_name" class="form-control-label required">Name</label>
+                <input type="text" id="partner_name" name="partner[name]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_email" class="form-control-label required">Email</label>
+                <input type="email" id="partner_email" name="partner[email]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_phone" class="form-control-label required">Phone</label>
+                <input type="text" id="partner_phone" name="partner[phone]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_address" class="form-control-label required">Address</label>
+                <textarea id="partner_address" name="partner[address]" required="required" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" id="partner_imageFile" name="partner[imageFile]" class="custom-file-input" />
+                    <label for="partner_imageFile" class="custom-file-label">Image file</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="partner_latitude" class="form-control-label required">Latitude</label>
+                <input type="text" id="partner_latitude" name="partner[latitude]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_longitude" class="form-control-label required">Longitude</label>
+                <input type="text" id="partner_longitude" name="partner[longitude]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_horary" class="form-control-label required">Horary</label>
+                <input type="text" id="partner_horary" name="partner[horary]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_comment" class="form-control-label required">Comment</label>
+                <input type="text" id="partner_comment" name="partner[comment]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input type="checkbox" id="partner_isSpecialOffer" name="partner[isSpecialOffer]" class="form-check-input" value="1" />
+                    <label class="form-check-label" for="partner_isSpecialOffer">Is special offer</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="partner_offer" class="form-control-label required">Offer</label>
+                <input type="text" id="partner_offer" name="partner[offer]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_tripAdvisorLink" class="form-control-label required">Trip advisor link</label>
+                <input type="text" id="partner_tripAdvisorLink" name="partner[tripAdvisorLink]" required="required" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="partner_country" class="form-control-label required">Country</label>
+                <input type="text" id="partner_country" name="partner[country]" required="required" class="form-control" />
+            </div>
+            <!-- TODO choose location -->
+        </div>
+        <button class="btn btn-success">Save</button>
+    </form>
+
+</div>
+</body>
+</html>

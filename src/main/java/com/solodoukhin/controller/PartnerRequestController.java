@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Author: Solodoukhin Viktor
@@ -28,5 +29,11 @@ public class PartnerRequestController {
     {
         model.addAttribute("requests", repository.findAll());
         return "request/get-all";
+    }
+
+    @RequestMapping(path = "/create", method = {RequestMethod.GET})
+    public String createOne()
+    {
+        return "request/create-one";
     }
 }

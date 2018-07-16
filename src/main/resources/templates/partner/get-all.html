@@ -1,44 +1,38 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
 <head>
-    <title>Costa Rica Travel</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="webjars/bootstrap/4.1.1/css/bootstrap.min.css"/>
+    <title>Costa Rica Travel | Partners</title>
 </head>
 <body>
 
-<main role="main">
-    <div class="container">
-        <h1>Partners</h1>
+<div layout:fragment="content">
+    <h1>Partners</h1>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Country</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="partner : ${partners}">
-                <td th:text="${partner.id}"></td>
-                <td th:text="${partner.name}"></td>
-                <td th:text="${partner.email}"></td>
-                <td th:text="${partner.phone}"></td>
-                <td th:text="${partner.country}"></td>
-                <td>/</td>
-            </tr>
-            </tbody>
-        </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Country</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="partner : ${partners}">
+            <td th:text="${partner.id}"></td>
+            <td th:text="${partner.name}"></td>
+            <td th:text="${partner.email}"></td>
+            <td th:text="${partner.phone}"></td>
+            <td th:text="${partner.country}"></td>
+            <td><a th:href="@{/partner/__${partner.id}__}">P</a></td>
+        </tr>
+        </tbody>
+    </table>
 
-    </div>
-</main>
+    <a th:href="@{/partner/create}" class="btn btn-outline-success">Create</a>
 
-<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
-<script src="/webjars/popper.js/1.14.1/popper.min.js"></script>
-<script src="/webjars/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

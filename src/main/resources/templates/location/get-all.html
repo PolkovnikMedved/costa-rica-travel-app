@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
 <head>
-    <title>Costa Rica Travel</title>
+    <title>Costa Rica Travel | Locations</title>
 </head>
 <body>
 
@@ -24,6 +24,8 @@
             </tr>
         </tbody>
     </table>
+
+    <a th:href="@{/location/create}" class="btn btn-outline-success">Create</a>
 
 </div>
 </body>
