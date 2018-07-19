@@ -1,4 +1,4 @@
-package com.solodoukhin.controller;
+package com.solodoukhin.controller.old;
 
 import com.solodoukhin.repository.PartnerRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;

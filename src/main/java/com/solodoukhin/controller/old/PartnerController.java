@@ -1,4 +1,4 @@
-package com.solodoukhin.controller;
+package com.solodoukhin.controller.old;
 
 import com.solodoukhin.model.Partner;
 import com.solodoukhin.repository.PartnerRepository;

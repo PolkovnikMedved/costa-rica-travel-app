@@ -1,6 +1,6 @@
-package com.solodoukhin.controller;
+package com.solodoukhin.controller.old;
 
-import com.solodoukhin.repository.LocationRepository;
+import com.solodoukhin.repository.PartnerTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,26 +14,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Description: TODO
  */
 @Controller
-@RequestMapping("/location")
-public class LocationController {
+@RequestMapping("/partner-type")
+public class PartnerTypeController {
 
-    private LocationRepository locationRepository;
+    private PartnerTypeRepository repository;
 
     @Autowired
-    public LocationController(LocationRepository locationRepository) {
-        this.locationRepository = locationRepository;
+    public PartnerTypeController(PartnerTypeRepository repository) {
+        this.repository = repository;
     }
 
     @GetMapping
     public String getAll(Model model)
     {
-        model.addAttribute("locations", this.locationRepository.findAll());
-        return "location/get-all";
+        model.addAttribute("types", repository.findAll());
+        return "type/get-all";
     }
 
     @RequestMapping(path = "/create", method = {RequestMethod.GET})
     public String createOne()
     {
-        return "location/create-one";
+        return "type/create-one";
     }
 }
