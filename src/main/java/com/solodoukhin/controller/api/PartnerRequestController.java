@@ -29,7 +29,7 @@ public class PartnerRequestController {
         this.repository = repository;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public PartnerRequest add(@RequestBody PartnerRequest request)
     {
         logger.info("Access PartnerRequestController.add with parameter = " + request);

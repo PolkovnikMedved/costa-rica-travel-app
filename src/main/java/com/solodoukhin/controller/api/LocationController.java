@@ -29,7 +29,7 @@ public class LocationController {
         this.repository = repository;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Location add(@RequestBody Location location)
     {
         logger.info("Access LocationController.add with parameter = " + location);
