@@ -29,6 +29,14 @@ public class LocationController {
         this.repository = repository;
     }
 
+    @GetMapping("/{id}")
+    public Location getOne(@PathVariable("id") Integer id)
+    {
+        logger.info("Access LocationController.getOne with parameter = " + id);
+        Optional<Location> location = this.repository.findById(id);
+        return location.orElseGet(Location::new);
+    }
+
     @PostMapping("/add")
     public Location add(@RequestBody Location location)
     {
