@@ -29,6 +29,14 @@ public class PartnerRequestController {
         this.repository = repository;
     }
 
+    @GetMapping("/{id}")
+    public PartnerRequest getOne(@PathVariable("id") Integer id)
+    {
+        logger.info("Access PartnerRequestController.getOne with parameter = " + id);
+        Optional<PartnerRequest> request = this.repository.findById(id);
+        return request.orElseGet(PartnerRequest::new);
+    }
+
     @PostMapping("/add")
     public PartnerRequest add(@RequestBody PartnerRequest request)
     {
