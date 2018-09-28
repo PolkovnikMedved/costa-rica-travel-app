@@ -1,13 +1,17 @@
 package com.solodoukhin.controller.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solodoukhin.model.PartnerType;
 import com.solodoukhin.repository.PartnerTypeRepository;
+import com.solodoukhin.service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -23,10 +27,12 @@ public class PartnerTypeController {
 
     private static final Logger logger = LoggerFactory.getLogger(PartnerTypeController.class);
     private PartnerTypeRepository repository;
+    private StorageService storageService;
 
     @Autowired
-    public PartnerTypeController(PartnerTypeRepository repository) {
+    public PartnerTypeController(PartnerTypeRepository repository, StorageService storageService) {
         this.repository = repository;
+        this.storageService = storageService;
     }
 
     @PostMapping
@@ -41,6 +47,33 @@ public class PartnerTypeController {
             logger.error("Could not save partner type.", e);
         }
         return createdRequest;
+    }
+
+    @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<PartnerType> create(@RequestParam("partner-type") String partnerTypeJSON, @RequestParam("file") MultipartFile file)
+    {
+        logger.info("Call to PartnerTypeController.create with file = " + file.getOriginalFilename(), ", partner type = " + partnerTypeJSON);
+        PartnerType partnerType;
+        try{
+            partnerType = new ObjectMapper().readValue(partnerTypeJSON, PartnerType.class);
+            String createdFileName = this.storageService.store(file);
+            if(createdFileName != null)
+            {
+                partnerType.setPicture(createdFileName);
+                this.repository.save(partnerType);
+                logger.info("Partner type has been saved. Created picture name = " + createdFileName);
+            }
+            else
+            {
+                return ResponseEntity.badRequest().body(null);
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not create partner type.", e);
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok(partnerType);
     }
 
     @PutMapping("/update")
