@@ -35,18 +35,12 @@ public class PartnerTypeController {
         this.storageService = storageService;
     }
 
-    @PostMapping
-    public PartnerType add(@RequestBody PartnerType type)
+    @GetMapping("/{id}")
+    public PartnerType getOne(@PathVariable("id") Integer id)
     {
-        logger.info("Access PartnerTypeController.add with parameter = " + type);
-        PartnerType createdRequest = null;
-        try{
-            createdRequest = this.repository.save(type);
-        } catch (Exception e)
-        {
-            logger.error("Could not save partner type.", e);
-        }
-        return createdRequest;
+        logger.info("Access PartnerType.getOne with parameter = " + id);
+        Optional<PartnerType> type = this.repository.findById(id);
+        return type.orElseGet(PartnerType::new);
     }
 
     @PostMapping(value = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
