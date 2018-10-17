@@ -1,4 +1,4 @@
-package com.solodoukhin.controller.api;
+package com.solodoukhin.controller.webapp;
 
 import com.solodoukhin.model.Location;
 import com.solodoukhin.repository.LocationRepository;

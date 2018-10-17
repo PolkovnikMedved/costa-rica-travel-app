@@ -1,4 +1,4 @@
-package com.solodoukhin.controller.api;
+package com.solodoukhin.controller.webapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solodoukhin.model.PartnerType;

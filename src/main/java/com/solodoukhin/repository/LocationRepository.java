@@ -1,7 +1,7 @@
 package com.solodoukhin.repository;
 
 import com.solodoukhin.model.Location;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,4 +10,4 @@ import org.springframework.stereotype.Repository;
  * Description: TODO
  */
 @Repository
-public interface LocationRepository extends CrudRepository<Location, Integer> {}
+public interface LocationRepository extends JpaRepository<Location, Integer> {}

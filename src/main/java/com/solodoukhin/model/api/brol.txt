@@ -1,0 +1,131 @@
+// === Default Controller ===
+$app->get('/', function(Request $request, Response $response){
+    $defaultController = new \controller\DefaultController();
+    return $response->getBody()->write(var_export($defaultController->sayHello(), true));
+});
+
+// === HotWord Controller ===
+$app->any('/hot-word/all', function(Request $request, \Slim\Http\Response $response){
+    $hotWordController = new \controller\HotWordController();
+    return $response
+        ->withJson($hotWordController->getAll(), 200, JSON_UNESCAPED_SLASHES);
+});
+
+// === IosController ===
+// API ROUTE
+$app->any('/api/ios', function(Request $request, \Slim\Http\Response $response){
+    $iosController = new \controller\IosController();
+    return $response
+        ->withJson($iosController->getAll(), 200, JSON_UNESCAPED_SLASHES);
+});
+
+// API ROUTE == /api/ios
+$app->any('/ios/getdevices/{Country}', function(Request $request, \Slim\Http\Response $response){
+    $iosController = new \controller\IosController();
+    return $response
+	->withHeader('Cache-Control', 'no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+        ->withJson($iosController->getAll(), 200, JSON_UNESCAPED_SLASHES);
+});
+
+// API ROUTE
+$app->get('/ios/adddevice/{token}', function(Request $request, \Slim\Http\Response $response){
+    $token = $request->getAttributes()['token'];
+    $iosController = new \controller\IosController();
+    $ios = new \model\Ios();
+    $ios->setToken($token);
+    $affected_rows = $iosController->create($ios);
+    if($affected_rows)
+    {
+        return $response
+            ->withStatus(200)
+            ->withJson($affected_rows);
+    }
+    return $response
+            ->withStatus(400);
+});
+
+// === LocationController ===
+//API ROUTE
+$app->any('/api/location', function(Request $request,\Slim\Http\Response $response){
+    $locationController = new \controller\LocationController();
+    return $response
+	->withHeader('Cache-Control', 'no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+        ->withJson($locationController->getAll(), 200, JSON_UNESCAPED_SLASHES);
+});
+
+$app->any('/location/getall/{Country}', function(Request $request,\Slim\Http\Response $response){
+    $locationController = new \controller\LocationController();
+    return $response
+	->withHeader('Cache-Control', 'no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+        ->withJson($locationController->getAll(), 200, JSON_UNESCAPED_SLASHES);
+});
+
+// === PartnerController ===
+// API ROUTE
+$app->any('/api/partner', function(Request $request, \Slim\Http\Response $response){
+    $country = $request->getQueryParams()['country'];
+    $partnerController = new \controller\PartnerController();
+
+    return $response
+	->withHeader('Cache-Control', 'no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+            ->withJson($partnerController->getAllByCountry($country), 200, JSON_UNESCAPED_SLASHES);
+});
+
+// API ROUTE
+$app->any('/partner/getall/{country}', function(Request $request, \Slim\Http\Response $response, $args){
+    $country = $args['country'];
+    $partnerController = new \controller\PartnerController();
+
+    return $response
+	->withHeader('Cache-Control','no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+        ->withJson($partnerController->getAllByCountry($country), 200, JSON_UNESCAPED_SLASHES);
+});
+
+// === PartnerTypeController ===
+// API ROUTE
+$app->any('/api/partnertype', function(Request $request, \Slim\Http\Response $response){
+   $country = $request->getQueryParams()['country'];
+   $partnerTypeController = new \controller\PartnerTypeController();
+
+   return $response
+	->withHeader('Cache-Control', 'no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+       ->withJson($partnerTypeController->getAllByCountry($country), 200, JSON_UNESCAPED_SLASHES);
+});
+
+$app->any('/partnertype/getall/{country}', function(Request $request, \Slim\Http\Response $response, $args){
+        $country = $args['country'];
+    $partnerTypeController = new \controller\PartnerTypeController();
+
+    return $response
+	->withHeader('Cache-Control','no-cache')
+	->withHeader('Pragma', 'no-cache')
+	->withHeader('Expires', -1)
+        ->withJson($partnerTypeController->getAllByCountry($country), 200, JSON_UNESCAPED_SLASHES);
+});
+
+$app->any('/images/{image_name}', function(Resquest $request, \Slim\Http\Response $response, $args){
+	$imageName = $args['image_name'];
+	$directory = __DIR__ . '/../../pictures/';
+	$image = @file_get_contents($directory.$imageName);
+
+	if(!$image){
+		return $response->withStatus(404);
+	}
+
+	$response->write($image);
+	return $response->withHeader('Content-Type','image/jpeg');
+});
+
+$app->run();
