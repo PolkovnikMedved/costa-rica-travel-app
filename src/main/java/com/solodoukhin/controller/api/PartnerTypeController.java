@@ -70,28 +70,37 @@ public class PartnerTypeController {
         return ResponseEntity.ok(partnerType);
     }
 
-    @PutMapping("/update")
-    public PartnerType update(@RequestBody PartnerType type)
+    @PostMapping(value="/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<PartnerType> update(@RequestParam("partner-type") String partnerTypeJSON, @RequestParam(value = "file", required = false) MultipartFile file)
     {
-        logger.info("Access PartnerTypeController.update with parameter = " + type);
-        PartnerType savedRequest;
-        try{
-            boolean exists = this.repository.existsById(type.getId());
-            logger.info("Partner type exists.");
-
-            if(!exists)
-            {
-                logger.error("Could not update type because not found.");
-                return null;
-            }
-
-            savedRequest = this.repository.save(type);
-        } catch (Exception e)
+        logger.info("Call to PartnerTypeController.create with file = " + file.getOriginalFilename() + ", partner type = " + partnerTypeJSON);
+        PartnerType partnerType;
+        try
         {
-            logger.error("Could not update type.",e);
-            return null;
+            partnerType = new ObjectMapper().readValue(partnerTypeJSON, PartnerType.class);
+
+            if(file != null && file.getOriginalFilename() != null)  {
+                String newFileName = this.storageService.store(file);
+                if(newFileName != null) {
+                    partnerType.setPicture(newFileName);
+                    this.repository.save(partnerType);
+                    logger.info("Partner type has been updated with new picture.");
+                } else {
+                    return ResponseEntity.badRequest().body(null);
+                }
+            }
+            else
+            {
+                this.repository.save(partnerType);
+                logger.info("Partner type has been updated. No new picture.");
+            }
         }
-        return savedRequest;
+        catch (Exception e)
+        {
+            logger.error("Could not create partner type from string.", e);
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok(partnerType);
     }
 
     @GetMapping("/all")
