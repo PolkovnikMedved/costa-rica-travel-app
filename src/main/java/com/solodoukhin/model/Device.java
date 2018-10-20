@@ -20,6 +20,10 @@ public class Device {
 
     public Device() {}
 
+    public Device(String token) {
+        this.token = token;
+    }
+
     public int getId() {
         return id;
     }

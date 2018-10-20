@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Author: Solodoukhin Viktor
  * Date: 17.10.18
- * Description: TODO
+ * Description: Controller for api methods
  */
 @RestController
 public class LocationDTOController {
